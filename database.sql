@@ -16,11 +16,11 @@ CREATE TABLE waiter_shifts(
     FOREIGN KEY (shift_id) REFERENCES weekdays(id) 
 );
 
-INSERT INTO weekdays (shifts) VALUES ('Sunday');
-INSERT INTO weekdays (shifts) VALUES ('Monday');
-INSERT INTO weekdays (shifts) VALUES ('Tuesday');
-INSERT INTO weekdays (shifts) VALUES ('Wednesday');
-INSERT INTO weekdays (shifts) VALUES ('Thursday');
-INSERT INTO weekdays (shifts) VALUES ('Friday');
-INSERT INTO weekdays (shifts) VALUES ('Saturday'); 
+INSERT INTO weekdays (shifts) VALUES ('Sunday')
+,('Monday')
+,('Tuesday')
+,('Wednesday')
+,('Thursday')
+,('Friday')
+,('Saturday'); 
 
