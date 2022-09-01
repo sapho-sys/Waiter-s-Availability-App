@@ -47,9 +47,7 @@ app.use(bodyParser.json());
 app.use(session({
     secret: 'flash the mesaage',
     resave: false,
-    saveUninitialized: true
-    
-    
+    saveUninitialized: true   
 }));
 
 // initialise the flash middleware

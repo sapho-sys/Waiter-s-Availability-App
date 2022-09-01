@@ -1,11 +1,11 @@
 CREATE TABLE my_waiters(
     id SERIAL NOT NULL PRIMARY KEY,
-    waiter_name VARCHAR(40) NOT NULL
+    waiter_name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE weekdays(
     id SERIAL NOT NULL PRIMARY KEY,
-    shifts VARCHAR(40) NOT NULL
+    shifts VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE waiter_shifts(

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waiter's Availability App</title>
+</head>
+
+<body>
+    <section class="entry">
+        <form action="/waiter" method="post">
+            <input type="text" class="form-control" placeholder="waiter-name" name="waitername">
+            <button class="myBtn" type="submit" name="button">Submit</button>
+        </form>
+    </section>
+    <div class="errors">
+        <span>{{errors}}</span>
+    </div>
+
+</body>
+
+</html>
