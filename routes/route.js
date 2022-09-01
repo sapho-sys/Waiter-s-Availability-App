@@ -17,14 +17,24 @@ function waitersSchecule(dataFactory,displayFactory){
 
     async function getWaiter(){
         let waiter = dataFactory.getEmployee();
-        let shifts = await waiterShift(waiter);
-
-
-
+        let shifts = await shiftsSelected(waiter);
+        res.render('waiters', {
+            waiter,
+            shifts
+        })
 
     }
 
     async function postDays(){
+        let strWaiter = dataFactory.getEmployee();
+        let myWaiter = req.body.checkDays
+	if ( myWaiter == undefined ) {
+		req.flash('error', 'Please select at least one day.');
+	} else 	{
+		req.flash('success', 'Shifts successfuly updated.');
+        await dataFactory.waiterShift(myWaiter);
+	}
+	res.redirect(`waiters/${strWaiter}`);
 
     }
 

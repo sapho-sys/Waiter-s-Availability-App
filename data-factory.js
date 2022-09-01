@@ -79,7 +79,7 @@ function theWaiters(db) {
         const theWeek = data.manyOrNone('SELECT * FROM weekdays');
         return theWeek;
     }
-    async function shiftsSelected(waiter) {
+    async function shiftsSelected(waiterId) {
 		const theDays = await weekDays();
         const getId = data.manyOrNone('SELECT id FROM my_waiters WHERE waiter_name = $1', [waitername]);
         const waiterId = getId[0].id;
