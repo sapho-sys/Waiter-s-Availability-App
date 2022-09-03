@@ -6,7 +6,7 @@ import bodyParser from "body-parser";
 import waitersRouters from "./routes/route.js";
 import flash from "express-flash";
 import dataFactory from "./data-factory.js";
-import displayFactory from "./display-factory.js";
+// import displayFactory from "./display-factory.js";
 import pgPromise from "pg-promise";
 
 const pgp = pgPromise({});
@@ -27,9 +27,9 @@ if (process.env.NODE_ENV == 'production') {
 
 const db = pgp(config);
 const regiesDB = dataFactory(db);
-const myRegies = displayFactory();
+// const myRegies = displayFactory();
 
-let employeeRouter = waitersRouters(regiesDB,myRegies);
+let employeeRouter = waitersRouters(regiesDB);
 
 //config express as middleware
 app.engine('handlebars', exphbs.engine());
@@ -37,6 +37,7 @@ app.set('view engine', 'handlebars');
 
 //css public in use
 app.use(express.static('public'));
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -52,8 +53,22 @@ app.use(session({
 
 // initialise the flash middleware
 app.use(flash());
+app.get('/', employeeRouter.defaultRoute);
+app.post('/waiter',employeeRouter.postWaiter);
+app.get('/waiters/:waitername', employeeRouter.getWaiter);
+app.post('/shifts', employeeRouter.postDays);
+app.get('/shifts/days', employeeRouter.getDays);
+app.get('/reset', employeeRouter.resetInfo);
 
 
 
 
-app.use(express.static('public'));
+
+
+
+//start the server
+const PORT = process.env.PORT || 3012;
+
+app.listen(PORT, function () {
+    console.log("App running at http://localhost:" + PORT)
+});

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/skeleton.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+     <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="row">
+        <table>
+            <thead>
+                <tr>
+                    {{#each Addcolor}}
+                    <th scope="col" class="{{color}}" value="{{id}}">{{shifts}}</th>
+                    {{/each}}
+
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>
+                        {{#each Sunday}}
+                        {{this}} <br>
+                        {{/each}}
+                    </td>
+                    <td>
+                        {{#each Monday}}
+                        {{this}} <br>
+                        {{/each}}
+                    </td>
+                    <td>
+                        {{#each Tuesday}}
+                        {{this}} <br>
+                        {{/each}}
+                    </td>
+                    <td>
+                        {{#each Wednesday}}
+                        {{this}} <br>
+                        {{/each}}
+                    </td>
+                    <td>
+                        {{#each Thursday}}
+                        {{this}} <br>
+                        {{/each}}
+                    </td>
+                    <td>
+                        {{#each Friday}}
+                        {{this}} <br>
+                        {{/each}}
+                    </td>
+                    <td>
+                        {{#each Saturday}}
+                        {{this}} <br>
+                        {{/each}}
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+    <form action="/reset" method="GET">
+        <button class="btn myBtn m-1" type="submit" name="button">Reset</button>
+    </form>
+
+</body>
+
+</html>

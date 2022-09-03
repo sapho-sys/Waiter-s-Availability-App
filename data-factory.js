@@ -1,3 +1,4 @@
+
 function theWaiters(db) {
     const data = db;
     let errorMsg = '';
@@ -42,49 +43,55 @@ function theWaiters(db) {
     }
 
     async function waiterShift(schedule){
-        const getId = data.manyOrNone('SELECT id FROM my_waiters WHERE waiter_name = $1', [waitername]);
-        const waiterId = getId[0].id;
-        const newWaiter = data.manyOrNone('SELECT waiter_id,shift_id FROM waiter_shifts WHERE waiter_id = $1', [waiterId]);
+        const waiterId = await waiterIdentity()
+        const newWaiter = await data.manyOrNone('SELECT waiter_id,shift_id FROM waiter_shifts WHERE waiter_id = $1', [waiterId]);
          if(newWaiter.length == 0){
             await scheduleDay(schedule,waiterId);
-
-         }
+         }else {
+			await scheduleDay(schedule, waiterId);
+		}
     }
 
-    async function scheduleDay(today,todayId){
-        if (typeof today === 'string' ) {
-			var dayId = await data.manyOrNone('SELECT id FROM weekdays WHERE shifts = $1', [today]);
-			var theDayId = dayId[0].id;
+    async function scheduleDay(weeklyShifts,todayId){
+        let dayId;
+        let theDayId;
+        if (typeof weeklyShifts === 'string' ) {
+			 dayId = await data.manyOrNone('SELECT id FROM weekdays WHERE shifts = $1', [weeklyShifts]);
+			 theDayId = dayId[0].id;
 			await data.manyOrNone('INSERT INTO waiter_shifts (waiter_id, shift_id) VALUES ($1,$2)', [todayId, theDayId]);
 
 		} else {
-			for (const i of today) {
+			for (const i of weeklyShifts) {
 				dayId = await data.manyOrNone('SELECT id FROM weekdays WHERE shifts = $1', [i]);
 				theDayId = dayId[0].id;
-				await data.manyOrNone('INSERT INTO waiter_shifts (waiter_id, shift_id) VALUES ($1,$2)', [todayId, theDayId]);
+				  await data.manyOrNone('INSERT INTO waiter_shifts (waiter_id, shift_id) VALUES ($1,$2)', [todayId, theDayId]);
 			}
 		}
     }
 
     async function integrateData(){
-        const strWaiters = await data.manyOrNone(`SELECT my_waiters.waiter_name, weekdays.shifts FROM waiter_shifts
+        const strWaiters = await data.query(`SELECT my_waiters.waiter_name, weekdays.shifts FROM waiter_shifts
 			INNER JOIN my_waiters ON waiter_shifts.waiter_id = my_waiters.id
 			INNER JOIN weekdays ON waiter_shifts.shift_id = weekdays.id`);
-
 		return strWaiters;
 
     }
 
     async function weekDays(){
-        const theWeek = data.manyOrNone('SELECT * FROM weekdays');
+        const theWeek = await data.manyOrNone('SELECT * FROM weekdays');
         return theWeek;
     }
-    async function shiftsSelected(waiterId) {
+    async function waiterIdentity(){
+        const getId = await data.manyOrNone('SELECT id FROM my_waiters WHERE waiter_name = $1', [waitername]);
+        console.log(getId[0].id);
+        return getId[0].id;
+
+    }
+    async function shiftsSelected(waiter) {
 		const theDays = await weekDays();
-        const getId = data.manyOrNone('SELECT id FROM my_waiters WHERE waiter_name = $1', [waitername]);
-        const waiterId = getId[0].id;
+        const myWaiterId =await waiterIdentity(waiter)
 		for (const i of theDays) {
-			const result = await data.manyOrNone('SELECT COUNT(*) AS counter FROM waiter_shifts WHERE waiter_id = $1 and day_id = $2', [waiterId, i.id]);
+			const result = await data.manyOrNone('SELECT COUNT(*) AS counter FROM waiter_shifts WHERE waiter_id = $1 and shift_id = $2', [myWaiterId, i.id]);
 			const count = result[0].count;
 
 			if (count > 0) {
@@ -100,7 +107,7 @@ function theWaiters(db) {
     async function classListAddForShifts() {
 		const eachDay = await weekDays();
 		for (const day of eachDay) {
-			const result = await data.manyOrNone('SELECT COUNT(*) AS counter FROM waiter_shifts WHERE day_id = $1', [day.id]);
+			const result = await data.manyOrNone('SELECT COUNT(*) AS counter FROM waiter_shifts WHERE shift_id = $1', [day.id]);
 			const count = result[0].count;
 	
 			if (count < 3) {
@@ -116,7 +123,8 @@ function theWaiters(db) {
 	}
 
     async function resetData() {
-		return pool.query('DELETE FROM waiter_shifts');
+		return data.none('DELETE FROM waiter_shifts');
+    
 	}
 
     return {
@@ -129,7 +137,8 @@ function theWaiters(db) {
         integrateData,
         waiterShift,
         resetData,
-        getEmployee
+        getEmployee,
+        waiterIdentity
     }
 
 }
