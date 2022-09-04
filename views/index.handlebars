@@ -6,20 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waiter's Availability App</title>
-      <link rel="stylesheet" href="/css/skeleton.css">
-      <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/skeleton.css">
+    <link rel="stylesheet" href="/css/normalize.css">
 </head>
 
 <body>
-    <section class="entry">
-        <form action="/waiter" method="post">
-            <input type="text" class="form-control" placeholder="waiter-name" name="waitername">
-            <button class="myBtn" type="submit" name="button">Submit</button>
-        </form>
-    </section>
-    <div class="errors">
-        <span>{{messages.errors}}</span>
+    <div class="container">
+        <div class="twelve column">
+            <form action="/waiter" method="post">
+                <input type="text" class="form-control" placeholder="waiter-name" name="waitername">
+                <br><br>
+                <button class="myBtn" type="submit" name="button">Submit</button>
+            </form>
+        </div>
+
     </div>
+
+    <div class="errors">
+        <span>{{messages.error}}</span>
+    </div>
+
+
 
 </body>
 

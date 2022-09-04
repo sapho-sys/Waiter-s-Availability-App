@@ -10,7 +10,8 @@ function waitersSchecule(dataFactory) {
             let waiter = dataFactory.getEmployee();
             res.redirect(`waiters/${waiter}`)
         } else {
-            req.flash('error', dataFactory.errors())
+            req.flash('error', dataFactory.errors());
+            res.redirect('/');
         }
 
     }

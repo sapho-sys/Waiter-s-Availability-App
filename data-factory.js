@@ -92,7 +92,7 @@ function theWaiters(db) {
         const myWaiterId =await waiterIdentity(waiter)
 		for (const i of theDays) {
 			const result = await data.manyOrNone('SELECT COUNT(*) AS counter FROM waiter_shifts WHERE waiter_id = $1 and shift_id = $2', [myWaiterId, i.id]);
-			const count = result[0].count;
+			const count = result[0].counter;
 
 			if (count > 0) {
 				i.check = true;
@@ -108,7 +108,7 @@ function theWaiters(db) {
 		const eachDay = await weekDays();
 		for (const day of eachDay) {
 			const result = await data.manyOrNone('SELECT COUNT(*) AS counter FROM waiter_shifts WHERE shift_id = $1', [day.id]);
-			const count = result[0].count;
+			const count = result[0].counter;
 	
 			if (count < 3) {
 				day.color = 'orange';
