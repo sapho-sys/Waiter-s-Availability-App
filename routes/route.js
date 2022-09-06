@@ -29,7 +29,7 @@ function waitersSchecule(dataFactory) {
     async function postDays(req, res) {
         let strWaiter = dataFactory.getEmployee();
         let myWaiter = req.body.checkDays
-        if (myWaiter == undefined) {
+        if (!myWaiter) {
             req.flash('error', 'Please select at least one day.');
         } else {
             req.flash('success', 'Shifts successfuly updated.');
@@ -49,30 +49,22 @@ function waitersSchecule(dataFactory) {
         const Friday = [];
         const Saturday = [];
         const Sunday = [];
-
         for (const i of myTable) {
             if (i.shifts === 'Sunday') {
                 Sunday.push(i.waiter_name);
-
             } else if (i.shifts === 'Monday') {
                 Monday.push(i.waiter_name);
-
             } else if (i.shifts === 'Tuesday') {
                 Tuesday.push(i.waiter_name);
-
             } else if (i.shifts === 'Wednesday') {
                 Wednesday.push(i.waiter_name);
-
             } else if (i.shifts === 'Thursday') {
                 Thursday.push(i.waiter_name);
-
             } else if (i.shifts === 'Friday') {
                 Friday.push(i.waiter_name);
-
             }
             if (i.shifts === 'Saturday') {
                 Saturday.push(i.waiter_name);
-
             }
 
         }

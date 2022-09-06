@@ -2,74 +2,121 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/skeleton.css">
-    <link rel="stylesheet" href="/css/normalize.css">
-     <link rel="stylesheet" href="/css/style.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Waiter's Availability App</title>
+    <link rel="shortcut icon" href="./images/" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Calligraffitti" />
+     <link rel="stylesheet" href="/css/utils.css" />
+      <link rel="stylesheet" href="/css/style-admin.css" /> 
+       <link rel="stylesheet" href="/css/style.css" />     
+      <script src="https://kit.fontawesome.com/9a9a378fa5.js" crossorigin="anonymous"></script>
+
+    <script src="./js/script.js" defer></script>
 </head>
 
 <body>
-    <div class="row">
-        <table>
-            <thead>
-                <tr>
-                    {{#each Addcolor}}
-                    <th scope="col" class="{{color}}" value="{{id}}">{{shifts}}</th>
-                    {{/each}}
+    <section class="header">
+        <div id="header" class="container">
+            <a href="#header"><img src="./images/" class="logo img-fluid" alt="Waiter's Availability"></a>
 
-                </tr>
-            </thead>
+            <div>
+                <ul id="navbar">
+                    <li><a  href="/">Home</a></li>
+                    {{!-- <li><a href="/waiters">Record Schedule</a></li> --}}
+                    <li><a class="active" href="/shifts/days">Shedules</a></li>
+                    <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+                </ul>
+            </div>
 
-            <tbody>
-                <tr>
-                    <td>
-                        {{#each Sunday}}
-                        {{this}} <br>
-                        {{/each}}
-                    </td>
-                    <td>
-                        {{#each Monday}}
-                        {{this}} <br>
-                        {{/each}}
-                    </td>
-                    <td>
-                        {{#each Tuesday}}
-                        {{this}} <br>
-                        {{/each}}
-                    </td>
-                    <td>
-                        {{#each Wednesday}}
-                        {{this}} <br>
-                        {{/each}}
-                    </td>
-                    <td>
-                        {{#each Thursday}}
-                        {{this}} <br>
-                        {{/each}}
-                    </td>
-                    <td>
-                        {{#each Friday}}
-                        {{this}} <br>
-                        {{/each}}
-                    </td>
-                    <td>
-                        {{#each Saturday}}
-                        {{this}} <br>
-                        {{/each}}
-                    </td>
-                </tr>
+            <div id="mobile">
+                <i id="bar" class="fa-solid fa-align-right"></i>
+            </div>
+        </div>
+    </section>
 
-            </tbody>
-        </table>
+    <section class="showcase">
+
+        <div class="row">
+            <section class="period">
+                <h2 class="underline">WAITER'S WEEKLY SCHEDULE</h2>
+                <div class="the-periods">
+                    <div class="table-periods">
+                        <table id="display"  class="styled-table">
+                            <thead>
+                                <tr>
+                                    {{#each Addcolor}}
+                                    <th class="{{color}}" value="{{id}}">{{shifts}}
+                                    </th>
+                                    {{/each}}
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        {{#each Sunday}}
+                                        {{this}} <br><br>
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Monday}}
+                                        {{this}} <br><br>
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Tuesday}}
+                                        {{this}} <br><br>
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Wednesday}}
+                                        {{this}} <br><br>
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Thursday}}
+                                        {{this}} <br><br>
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Friday}}
+                                        {{this}} <br><br>
+                                        {{/each}}
+                                    </td>
+                                    <td>
+                                        {{#each Saturday}}
+                                        {{this}} <br><br>
+                                        {{/each}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
 
+                </div>
+            </section>
+
+
+
+
+        </div>
+        <form action="/reset" method="GET">
+            <button class="btn myBtn m-1" type="submit" name="button">Reset</button>
+        </form>
+
+
+
+
+
+    </section>
+    <div class="errors">
+        <span>{{messages.error}}</span>
     </div>
-    <form action="/reset" method="GET">
-        <button class="btn myBtn m-1" type="submit" name="button">Reset</button>
-    </form>
+
 
 </body>
 

@@ -2,31 +2,86 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Waiter's Availability App</title>
-    <link rel="stylesheet" href="/css/skeleton.css">
-    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="shortcut icon" href="./images/" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Calligraffitti" />
+    <link rel="stylesheet" href="./css/utils.css" />
+    <link rel="stylesheet" href="./css/style-home.css" />
+     <link rel="stylesheet" href="/css/style-members.css" />
+
+    <script src="https://kit.fontawesome.com/9a9a378fa5.js" crossorigin="anonymous"></script>
+
+    <script src="./js/script.js" defer></script>
 </head>
 
 <body>
-    <div class="container">
-        <div class="twelve column">
-            <form action="/waiter" method="post">
-                <input type="text" class="form-control" placeholder="waiter-name" name="waitername">
-                <br><br>
-                <button class="myBtn" type="submit" name="button">Submit</button>
-            </form>
+    <section class="header">
+        <div id="header" class="container">
+            <a href="#header"><img src="./images/" class="logo img-fluid" alt="Waiter's Availability"></a>
+
+            <div>
+                <ul id="navbar">
+                    <li><a class="active"  href="/">Home</a></li>
+                    {{!-- <li><a href="/waiters">Record Schedule</a></li> --}}
+                    <li><a href="/shifts/days">Admin</a></li>
+                    <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+                </ul>
+            </div>
+
+            <div id="mobile">
+                <i id="bar" class="fa-solid fa-align-right"></i>
+            </div>
+        </div>
+    </section>
+
+    {{!-- <section class="showcase">
+        <div class="container">
+            <div class="twelve column">
+                <form action="/waiter" method="post">
+                    <input type="text" class="form-control" placeholder="waiter-name" name="waitername">
+                    <br><br>
+                    <button class="myBtn" type="submit" name="button">Submit</button>
+                </form>
+            </div>
+
         </div>
 
-    </div>
-
-    <div class="errors">
-        <span>{{messages.error}}</span>
-    </div>
+        <div class="errors">
+            <span>{{messages.error}}</span>
+        </div>
 
 
+    </section> --}}
+
+      <section class="add-member-details ">
+        <div class="container">
+          <div class="cont-box">
+            <div class="title">Add a waiter</div>
+
+            <div class="content">
+               <form action="/waiter" method="post">
+                  <div class="user-details">
+                     <div class="input-box">
+                        <span class="details">Full Name(s)</span>
+                        {{!-- <input type="text" id="name" name="name" placeholder="Enter member name" required /> --}}
+                         <input type="text" class="form-control" placeholder="waiter-name" name="waitername">
+                     </div>
+
+                  </div>
+                  
+                  <div class="button">
+                     {{!-- <button type="button" id="showBtn">Add Member</button> --}}
+                     <button class="button" type="submit" name="button">Submit</button>
+                  </div>
+               </form>
+            </div>
+          </div>
+        </div>
+      </section>
+     
 
 </body>
 
