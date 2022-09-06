@@ -23,8 +23,6 @@ if (process.env.NODE_ENV == 'production') {
 	}
 }
 
-
-
 const db = pgp(config);
 const regiesDB = dataFactory(db);
 // const myRegies = displayFactory();
@@ -59,11 +57,6 @@ app.get('/waiters/:waitername', employeeRouter.getWaiter);
 app.post('/shifts', employeeRouter.postDays);
 app.get('/shifts/days', employeeRouter.getDays);
 app.get('/reset', employeeRouter.resetInfo);
-
-
-
-
-
 
 
 //start the server
