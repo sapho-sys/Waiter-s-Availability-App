@@ -68,8 +68,8 @@
             <form action="/shifts" method="POST">
                 {{#each weeklyShifts}}
                 <div>
-                    <input class="m-2" type="checkbox" name="checkDays" value="{{shifts}}" {{#if
-                        check}}checked{{/if}}><span class="m-2 dayText"><strong>{{shifts}}</strong></span>
+                    <input class="m-2" type="checkbox" name="checkDays" value="{{shifts}}" {{#if 
+                    ticked}}checked{{/if}}><span class="m-2 dayText"><strong>{{shifts}}</strong></span>
                 </div>
                 {{/each}}
         </div>

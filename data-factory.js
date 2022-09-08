@@ -57,7 +57,7 @@ function theWaiters(db) {
         let theDayId;
         if (typeof weeklyShifts === 'string') {
             dayId = await data.manyOrNone('SELECT id FROM weekdays WHERE shifts = $1', [weeklyShifts]);
-            theDayId = dayId[0].id;
+             theDayId = dayId[0].id;
             await data.manyOrNone('INSERT INTO waiter_shifts (waiter_id, shift_id) VALUES ($1,$2)', [todayId, theDayId]);
 
         } else {
@@ -94,10 +94,11 @@ function theWaiters(db) {
         for (const i of theDays) {
             const result = await data.manyOrNone('SELECT COUNT(*) FROM waiter_shifts WHERE waiter_id = $1 and shift_id = $2', [myWaiterId, i.id]);
             const count = result[0].count;
+            //check if they atleast one day is checked
             if (count > 0) {
-                i.check = true;
+                i.ticked = true;
             } else {
-                i.check = false;
+                i.ticked = false;
             }
         }
 
@@ -109,7 +110,7 @@ function theWaiters(db) {
         for (const day of eachDay) {
             const result = await data.manyOrNone('SELECT COUNT(*)  FROM waiter_shifts WHERE shift_id = $1', [day.id]);
             const count = result[0].count;
-
+           //add color to my weekdays based on shedules
             if (count < 3) {
                 day.color = 'white';
             } else if (count == 3) {

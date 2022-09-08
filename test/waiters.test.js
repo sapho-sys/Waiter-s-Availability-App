@@ -49,7 +49,7 @@ describe('Waiters availibility webapp' , function(){
 
         await instanceWaiters.setEmployee("Skillo24");
 
-        assert.deepEqual('Invalid characters entered!, please try again...',instanceWaiters.errors())
+        assert.deepEqual('Invalid characters entered!, please try again...',instanceWaiters.errors());
 
     });
 
