@@ -34,38 +34,43 @@
         </div>
     </section>
 
-    <div class="flex">
-        <div class="theDays">
-            <h2>Welcome to the employee scheduling system <strong>{{waiter}}</strong> </h2>
-            <form action="/shifts" method="POST">
-                {{#each weeklyShifts}}
-                <div>
-                    <input class="m-2" type="checkbox" name="checkDays" value="{{shifts}}" {{#if
-                        ticked}}checked{{/if}}><span class="m-2 dayText"><strong>{{shifts}}</strong></span>
-                </div>
-                {{/each}}
-        </div>
-
-
-        <div class="update-btn">
-            <div class="saveBtn">
-                <button class="btn myBtn" type="submit" name="button">Save</button>
+    <section class="cont-box">
+        <div class="flex">
+            <div class="theDays">
+                <h2>Welcome to the employee scheduling system <strong>{{waiter}}</strong> </h2>
+                <form action="/shifts" method="POST">
+                    {{#each weeklyShifts}}
+                    <div>
+                        <input class="m-2" type="checkbox" name="checkDays" value="{{shifts}}" {{#if
+                            ticked}}checked{{/if}}><span class="m-2 dayText"><strong>{{shifts}}</strong></span>
+                    </div>
+                    {{/each}}
             </div>
-            </form>
-        </div>
-        {{#if messages.error}}
-        <div class="errors">
-            <h4 class="error">{{messages.error}}</h4>
-        </div>
-        {{/if}}
 
-        {{#if messages.success}}
-        <div class="errors">
-            <h4 class="success">{{messages.success}}</h4>
-        </div>
-        {{/if}}
 
-    </div>
+            <div class="update-btn">
+                <div class="saveBtn">
+                    <button class="btn myBtn" type="submit" name="button">Save</button>
+                </div>
+                </form>
+            </div><br><br>
+            {{#if messages.error}}
+            <div class="errors">
+                <h4 class="error">{{messages.error}}</h4>
+            </div>
+            {{/if}}
+
+            {{#if messages.success}}
+            <div class="errors">
+                <h4 class="success">{{messages.success}}</h4>
+            </div>
+            {{/if}}
+
+        </div>
+
+    </section>
+
+
 
 
 

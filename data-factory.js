@@ -84,7 +84,6 @@ function theWaiters(db) {
     }
     async function waiterIdentity() {
         const getId = await data.manyOrNone('SELECT id FROM my_waiters WHERE waiter_name = $1', [waitername]);
-        console.log(getId[0].id);
         return getId[0].id;
 
     }
