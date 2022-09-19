@@ -2,18 +2,17 @@
 function waitersSchecule(dataFactory) {
 
     async function defaultRoute(req, res) {
-        res.render('index',{
-            // errors:  dataFactory.errors()
-        });
+        res.render('index');
     }
     async function postWaiter(req, res) {
-        let herWaiter = await dataFactory.setEmployee(req.body.waitername);
-        if (herWaiter !== "") {
+        let entry = req.body.waitername;
+        if (entry != '') {
+            await dataFactory.setEmployee(entry);
             let waiter = dataFactory.getEmployee();
-            res.redirect(`waiters/${waiter}`)
-        } else if(!waiter){
-            req.flash('warn', dataFactory.errors());
-            res.redirect('/index');
+            res.redirect(`waiters/${waiter}`);
+        } else{
+            req.flash('error', 'Provide us with your name before we proceed');
+            res.redirect('/');
         }
 
     }
@@ -32,9 +31,9 @@ function waitersSchecule(dataFactory) {
         let strWaiter = dataFactory.getEmployee();
         let myWaiter = req.body.checkDays
         if (!myWaiter) {
-            req.flash('error', 'Please select at least one day.');
+            req.flash('error', 'Please select at least one day for your schedule.');
         } else {
-            req.flash('success', 'Shifts successfuly updated.');
+            req.flash('success', 'Successfuly updated.');
             await dataFactory.waiterShift(myWaiter);
         }
         res.redirect(`waiters/${strWaiter}`);
@@ -84,7 +83,7 @@ function waitersSchecule(dataFactory) {
         });
     }
 
-    async function resetInfo(req,res) {
+    async function resetInfo(req, res) {
         await dataFactory.resetData();
         req.flash('success', dataFactory.errors())
         res.redirect('/shifts/days');

@@ -1,6 +1,5 @@
 import assert from "assert";
 import dataFactory from "../data-factory.js";
-// import displayFactory from "../display-factory.js";
 import pgPromise from "pg-promise";
 const pgp = pgPromise({});
 
@@ -24,6 +23,7 @@ describe('Waiters availibility webapp' , function(){
 	beforeEach(async function(){
 		// clean the tables before each test run
 		await db.query('DELETE FROM my_waiters;');
+        
 	});
 
 

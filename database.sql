@@ -17,10 +17,6 @@ CREATE TABLE waiter_shifts(
 );
 
 INSERT INTO weekdays (shifts) VALUES ('Sunday')
-,('Monday')
-,('Tuesday')
-,('Wednesday')
-,('Thursday')
-,('Friday')
-,('Saturday'); 
+,('Monday'),('Tuesday'),('Wednesday'),('Thursday')
+,('Friday'),('Saturday'); 
 

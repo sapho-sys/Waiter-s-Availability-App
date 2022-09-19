@@ -15,3 +15,12 @@ tbody {
     background-color: aliceblue;
 
 }
+
+.errors{
+    color:crimson;
+    font-style: italic;
+}
+
+.success{
+    color:greenyellow;
+}
