@@ -53,9 +53,9 @@ app.use(session({
 app.use(flash());
 app.get('/', employeeRouter.defaultRoute);
 app.post('/waiter',employeeRouter.postWaiter);
-app.get('/waiters/:waitername', employeeRouter.getWaiter);
+app.get('/waiters/:username', employeeRouter.getWaiter);
 app.post('/shifts', employeeRouter.postDays);
-app.get('/shifts/days', employeeRouter.getDays);
+app.get('/days', employeeRouter.getDays);
 app.get('/reset', employeeRouter.resetInfo);
 
 

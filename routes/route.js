@@ -5,7 +5,7 @@ function waitersSchecule(dataFactory) {
         res.render('index');
     }
     async function postWaiter(req, res) {
-        let entry = req.body.waitername;
+        let entry = req.body.username;
         if (entry != '') {
             await dataFactory.setEmployee(entry);
             let waiter = dataFactory.getEmployee();
@@ -86,7 +86,7 @@ function waitersSchecule(dataFactory) {
     async function resetInfo(req, res) {
         await dataFactory.resetData();
         req.flash('success', dataFactory.errors())
-        res.redirect('/shifts/days');
+        res.redirect('/days');
 
     }
 

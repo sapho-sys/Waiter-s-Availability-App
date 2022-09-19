@@ -13,7 +13,7 @@ function theWaiters(db) {
                 if (waitername.match(RegExp)) {
                     const sqlDuplicates = await data.manyOrNone('SELECT waiter_name FROM my_waiters WHERE waiter_name = $1', [waitername]);
                     if (sqlDuplicates.length == 0) {
-                        await data.manyOrNone('INSERT INTO my_waiters (waiter_name) VALUES ($1)', [waitername]);
+                        await data.none('INSERT INTO my_waiters (waiter_name) VALUES ($1)', [waitername]);
                     } else {
                         errorMsg = 'Note: This waiter has already done their schedule for the week!'
                     }
