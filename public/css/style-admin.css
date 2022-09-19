@@ -209,3 +209,13 @@ body {
     }
     
  }
+
+ /* basic positioning */
+.legend { list-style: none; }
+.legend li { float: left; margin-right: 10px; }
+.legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }
+/* your colors */
+.legend .yellowdot { background-color: yellow; }
+.legend .greendot { background-color: green; }
+.legend .reddot { background-color: red; }
+.legend{background-color: aliceblue; width: 25%; border-radius: 10%; float:right; }
