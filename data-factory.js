@@ -124,6 +124,10 @@ function theWaiters(db) {
     }
 
     async function resetData() {
+
+        errorMsg = "Your schedule data has been  cleared";
+        
+
         return data.none('DELETE FROM waiter_shifts');
 
     }

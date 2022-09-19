@@ -2,28 +2,6 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/skeleton.css">
-    <link rel="stylesheet" href="/css/normalize.css">
-    <link rel="stylesheet" href="/css/style.css" />
-</head>
-
-<body>
-
-    <div class="card-body">
-
-
-</body>
-
-</html>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,8 +9,9 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Calligraffitti" />
     <link rel="stylesheet" href="/css/utils.css" />
     <link rel="stylesheet" href="/css/style-members.css" />
-   
-   
+    <link rel="stylesheet" href="/css/style.css" />
+
+
 </head>
 
 <body>
@@ -66,17 +45,7 @@
                 </div>
                 {{/each}}
         </div>
-        {{#if messages.error}}
-        <div class="errors">
-            <h4 class="errors">{{messages.error}}</h4>
-        </div>
-        {{/if}}
 
-        {{#if messages.success}}
-        <div class="success">
-            <h4 class="success">{{messages.success}}</h4>
-        </div>
-        {{/if}}
 
         <div class="update-btn">
             <div class="saveBtn">
@@ -84,12 +53,26 @@
             </div>
             </form>
         </div>
+        {{#if messages.error}}
+        <div class="errors">
+            <h4 class="error">{{messages.error}}</h4>
+        </div>
+        {{/if}}
+
+        {{#if messages.success}}
+        <div class="errors">
+            <h4 class="success">{{messages.success}}</h4>
+        </div>
+        {{/if}}
+
     </div>
 
 
 
 
-    <script src="setimeout.js"></script>
+
+
+    <script src="/js/setimeout.js"></script>
 
 </body>
 
