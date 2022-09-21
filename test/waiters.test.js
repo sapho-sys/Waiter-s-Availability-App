@@ -22,6 +22,7 @@ const db = pgp(config);
 describe('Waiters availibility webapp' , function(){
 	beforeEach(async function(){
 		// clean the tables before each test run
+        await db.query('DELETE FROM waiter_shifts;');
 		await db.query('DELETE FROM my_waiters;');
         
 	});
@@ -65,7 +66,21 @@ describe('Waiters availibility webapp' , function(){
         await instanceWaiters.setEmployee("Sapho");
 
         assert.deepEqual('Sapho', instanceWaiters.getEmployee());
-    })
+    });
+
+    // it ('Should be able to show the waiters scheduled', async function(){
+    //     let instanceWaiters = dataFactory(db);
+    //     await instanceWaiters.setEmployee("Sapho");
+    //     const weeklyShifts = [ 1, 3, 6];
+
+    //     await instanceWaiters.waiterShift(weeklyShifts)
+       
+       
+
+    //     assert.deepEqual([
+            
+    //       ], await instanceWaiters.integrateData());
+    // })
 
 
 

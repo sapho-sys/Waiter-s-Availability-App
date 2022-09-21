@@ -30,8 +30,8 @@ function waitersSchecule(dataFactory) {
     async function postDays(req, res) {
         let strWaiter = dataFactory.getEmployee();
         let myWaiter = req.body.checkDays
-        if (!myWaiter) {
-            req.flash('error', 'Please select at least one day for your schedule.');
+        if (myWaiter.length > 3) {
+            req.flash('error', 'Please select at least three days for your schedule.');
         } else {
             req.flash('success', 'Successfuly updated.');
             await dataFactory.waiterShift(myWaiter);

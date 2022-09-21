@@ -93,10 +93,10 @@ function theWaiters(db) {
         for (const i of theDays) {
             const result = await data.manyOrNone('SELECT COUNT(*) FROM waiter_shifts WHERE waiter_id = $1 and shift_id = $2', [myWaiterId, i.id]);
             const count = result[0].count;
-            //check if they atleast one day is checked
+            //check if they atleast 3 day is checked
             if (count > 3) {
                 i.ticked = true;
-            } else {
+            } else if (count < 1){
                 i.ticked = false;
             }
         }
@@ -111,7 +111,7 @@ function theWaiters(db) {
             const count = result[0].count;
            //add color to my weekdays based on shedules
             if (count < 3) {
-                day.color = 'white';
+                day.color = 'yellow';
             } else if (count == 3) {
                 day.color = 'green';
             } else {
