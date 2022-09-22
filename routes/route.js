@@ -43,6 +43,7 @@ function waitersSchecule(dataFactory) {
     async function getDays(req, res) {
         const myTable = await dataFactory.integrateData()
         const Addcolor = await dataFactory.classListAddForShifts();
+        console.log(Addcolor);
         // here I configure the arrays I will work with for each day
         const Monday = [];
         const Tuesday = [];

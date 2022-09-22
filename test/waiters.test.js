@@ -68,19 +68,53 @@ describe('Waiters availibility webapp' , function(){
         assert.deepEqual('Sapho', instanceWaiters.getEmployee());
     });
 
-    // it ('Should be able to show the waiters scheduled', async function(){
-    //     let instanceWaiters = dataFactory(db);
-    //     await instanceWaiters.setEmployee("Sapho");
-    //     const weeklyShifts = [ 1, 3, 6];
+    it ('Should be able to schedule a day and show color Yellow to be applied to the table header', async function(){
+        let instanceWaiters = dataFactory(db);
+        await instanceWaiters.setEmployee("Sapho");
+        const weeklyShifts = "Wednesday";
 
-    //     await instanceWaiters.waiterShift(weeklyShifts)
+        await instanceWaiters.waiterShift(weeklyShifts)
        
        
 
-    //     assert.deepEqual([
-            
-    //       ], await instanceWaiters.integrateData());
-    // })
+        assert.deepEqual([
+            {
+              color: 'yellow',
+              id: 1,
+              shifts: 'Sunday'
+            },
+            {
+              color: 'yellow',
+              id: 2,
+              shifts: 'Monday'
+            },
+            {
+              color: 'yellow',
+              id: 3,
+              shifts: 'Tuesday'
+            },
+            {
+              color: 'yellow',
+              id: 4,
+              shifts: 'Wednesday'
+            },
+            {
+              color: 'yellow',
+              id: 5,
+              shifts: 'Thursday'
+            },
+            {
+              color: 'yellow',
+              id: 6,
+              shifts: 'Friday'
+            },
+            {
+              color: 'yellow',
+              id: 7,
+              shifts: 'Saturday'
+            }
+          ], await instanceWaiters.classListAddForShifts());
+    })
 
 
 
