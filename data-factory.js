@@ -60,13 +60,7 @@ function theWaiters(db) {
              theDayId = dayId[0].id;
             await data.manyOrNone('INSERT INTO waiter_shifts (waiter_id, shift_id) VALUES ($1,$2)', [todayId, theDayId]);
 
-        } else {
-            for (const i of weeklyShifts) {
-                dayId = await data.manyOrNone('SELECT id FROM weekdays WHERE shifts = $1', [i]);
-                theDayId = dayId[0].id;
-                await data.manyOrNone('INSERT INTO waiter_shifts (waiter_id, shift_id) VALUES ($1,$2)', [todayId, theDayId]);
-            }
-        }
+        } 
     }
 
     async function integrateData() {
