@@ -55,12 +55,13 @@ function theWaiters(db) {
     async function scheduleDay(weeklyShifts, todayId) {
         let dayId;
         let theDayId;
-        if (typeof weeklyShifts === 'string') {
-            dayId = await data.manyOrNone('SELECT id FROM weekdays WHERE shifts = $1', [weeklyShifts]);
-             theDayId = dayId[0].id;
-            await data.manyOrNone('INSERT INTO waiter_shifts (waiter_id, shift_id) VALUES ($1,$2)', [todayId, theDayId]);
-
-        } 
+        if (Array.isArray(new Array(weeklyShifts))) {
+            for (const i of weeklyShifts) {
+                dayId = await data.manyOrNone('SELECT id FROM weekdays WHERE shifts = $1', [i]);
+                theDayId = dayId[0].id;
+                await data.manyOrNone('INSERT INTO waiter_shifts (waiter_id, shift_id) VALUES ($1,$2)', [todayId, theDayId]);
+            }
+        }
     }
 
     async function integrateData() {
@@ -90,7 +91,7 @@ function theWaiters(db) {
             //check if they atleast 3 day is checked
             if (count > 0) {
                 i.ticked = true;
-            } else{
+            } else {
                 i.ticked = false;
             }
         }
@@ -103,7 +104,7 @@ function theWaiters(db) {
         for (const day of eachDay) {
             const result = await data.manyOrNone('SELECT COUNT(*)  FROM waiter_shifts WHERE shift_id = $1', [day.id]);
             const count = result[0].count;
-           //add color to my weekdays based on shedules
+            //add color to my weekdays based on shedules
             if (count < 3) {
                 day.color = 'yellow';
             } else if (count == 3) {
@@ -119,7 +120,7 @@ function theWaiters(db) {
     async function resetData() {
 
         errorMsg = "Your schedule data has been  cleared";
-        
+
 
         return data.none('DELETE FROM waiter_shifts');
 

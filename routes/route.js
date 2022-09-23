@@ -10,7 +10,7 @@ function waitersSchecule(dataFactory) {
             await dataFactory.setEmployee(entry);
             let waiter = dataFactory.getEmployee();
             res.redirect(`waiters/${waiter}`);
-        } else{
+        } else if(!entry){
             req.flash('error', 'Provide us with your name before we proceed');
             res.redirect('/');
         }
@@ -30,7 +30,7 @@ function waitersSchecule(dataFactory) {
     async function postDays(req, res) {
         let strWaiter = dataFactory.getEmployee();
         let myWaiter = req.body.checkDays
-        if (myWaiter.length > 3) {
+        if (!myWaiter) {
             req.flash('error', 'Please select at least three days for your schedule.');
         } else {
             req.flash('success', 'Successfuly updated.');
@@ -43,7 +43,6 @@ function waitersSchecule(dataFactory) {
     async function getDays(req, res) {
         const myTable = await dataFactory.integrateData()
         const Addcolor = await dataFactory.classListAddForShifts();
-        console.log(Addcolor);
         // here I configure the arrays I will work with for each day
         const Monday = [];
         const Tuesday = [];
