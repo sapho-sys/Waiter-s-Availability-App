@@ -20,3 +20,10 @@ INSERT INTO weekdays (shifts) VALUES ('Sunday')
 ,('Monday'),('Tuesday'),('Wednesday'),('Thursday')
 ,('Friday'),('Saturday'); 
 
+CREATE TABLE admin_user(
+    id SERIAL PRIMARY KEY NOT NULL, 
+username VARCHAR(50) NOT NULL, 
+email VARCHAR(50) NOT NULL, 
+code VARCHAR(50));
+ 
+

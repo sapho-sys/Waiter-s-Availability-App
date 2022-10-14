@@ -1,8 +1,52 @@
 
-function waitersSchecule(dataFactory) {
+import ShortUniqueId from "short-unique-id";
+const uid = new ShortUniqueId({ length: 10 });
+function waitersSchecule(dataFactory,db) {
 
     async function defaultRoute(req, res) {
         res.render('index');
+    }
+    async function signUpRoute(req, res) {
+        res.render('signup');
+    }
+
+    async function loginRoute(req, res) {
+        res.render('login');
+    }
+    async function regUser(req,res){
+        const userEmail= req.body.email;
+        const username= req.body.username;
+        if(userEmail !='' || username !=''){
+            let code = uid();
+              console.log(`Here is the code`,code)
+           
+            // if(existingUser > 0){
+                // req.flash('error','This account already exists');
+                // res.redirect('back');
+            // }else{
+                await dataFactory.registerUser(username,userEmail,code)
+                req.flash('error',`Here is your password>>${code}`)
+                res.redirect(`back`);
+             // }
+        }else{
+            req.flash('error','Please ensure that you fill in all fields');
+            res.redirect('back')
+        }
+    }
+
+    async function Login(req, res) {
+        const email = req.body.email;
+        const password = req.body.password;
+       const userLogin = await db.manyOrNone(`SELECT * FROM admin_user 
+       WHERE email = $1 and code = $2`,[email, password]);
+       console.log(userLogin);
+       if(userLogin.length == 0){
+        req.flash('error','You do not have an account; please create it');
+        res.redirect('back')
+       }else{
+        req.session.userLogin = userLogin;
+        res.redirect(`days`)
+       }
     }
     async function postWaiter(req, res) {
         let entry = req.body.username;
@@ -73,6 +117,7 @@ function waitersSchecule(dataFactory) {
 
         }
         res.render('admin', {
+            user:req.session.userLogin,
             Sunday,
             Monday,
             Tuesday,
@@ -81,6 +126,7 @@ function waitersSchecule(dataFactory) {
             Friday,
             Saturday,
             Addcolor
+            
         });
     }
 
@@ -97,7 +143,11 @@ function waitersSchecule(dataFactory) {
         postDays,
         getDays,
         resetInfo,
-        getWaiter
+        getWaiter,
+        signUpRoute,
+        loginRoute,
+        regUser,
+        Login
     }
 
 

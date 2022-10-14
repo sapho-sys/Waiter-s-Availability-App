@@ -11,7 +11,7 @@ import pgPromise from "pg-promise";
 
 const pgp = pgPromise({});
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:sap123@localhost:5432/the_waiters';
+const connectionString = process.env.DATABASE_URL || 'postgresql://postgres:sap123@localhost:5432/her_waiters';
 
 const config = { 
 	connectionString
@@ -27,7 +27,7 @@ const db = pgp(config);
 const regiesDB = dataFactory(db);
 // const myRegies = displayFactory();
 
-let employeeRouter = waitersRouters(regiesDB);
+let employeeRouter = waitersRouters(regiesDB,db);
 
 //config express as middleware
 app.engine('handlebars', exphbs.engine());
@@ -44,7 +44,7 @@ app.use(bodyParser.json());
 
 // initialise session middleware - flash-express depends on it
 app.use(session({
-    secret: 'flash the mesaage',
+    secret: 'djfhsdflbasf',
     resave: false,
     saveUninitialized: true   
 }));
@@ -56,6 +56,11 @@ app.post('/waiter',employeeRouter.postWaiter);
 app.get('/waiters/:username', employeeRouter.getWaiter);
 app.post('/shifts', employeeRouter.postDays);
 app.get('/days', employeeRouter.getDays);
+app.get('/login', employeeRouter.loginRoute);
+app.post('/login', employeeRouter.Login);
+app.post('/signup',employeeRouter.regUser);
+// app.get('/signup/username',employeeRouter.getUser);
+app.get('/signup', employeeRouter.signUpRoute);
 app.get('/reset', employeeRouter.resetInfo);
 
 

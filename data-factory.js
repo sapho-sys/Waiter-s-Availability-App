@@ -69,8 +69,33 @@ function theWaiters(db) {
         FROM waiter_shifts
 		INNER JOIN my_waiters ON waiter_shifts.waiter_id = my_waiters.id
 		INNER JOIN weekdays ON waiter_shifts.shift_id = weekdays.id`);
-        return strWaiters;
+        return strWaiters;  
 
+    }
+
+    async function checkUser(username,email){
+        const code =' ';
+          await registerUser(username, email, code);
+    }
+    
+    async function registerUser(username,email,password){
+        let dataModel = [
+            username,
+            email,
+            password
+        ]
+      
+        try {
+          
+            const regEntry = await data.none(`INSERT INTO admin_user (username, email, code) 
+            VALUES($1 ,$2,$3)`,dataModel);
+            
+        } catch (error) {
+            console.log(`Here is your error:`,error)
+            
+        }
+       
+        // return regEntry;
     }
 
     async function weekDays() {
@@ -80,7 +105,6 @@ function theWaiters(db) {
     async function waiterIdentity() {
         const getId = await data.manyOrNone('SELECT id FROM my_waiters WHERE waiter_name = $1', [waitername]);
         return getId[0].id;
-
     }
     async function shiftsSelected(waiter) {
         const theDays = await weekDays();
@@ -103,6 +127,7 @@ function theWaiters(db) {
         const eachDay = await weekDays();
         for (const day of eachDay) {
             const result = await data.manyOrNone('SELECT COUNT(*)  FROM waiter_shifts WHERE shift_id = $1', [day.id]);
+            console.log(result)
             const count = result[0].count;
             //add color to my weekdays based on shedules
             if (count < 3) {
@@ -113,17 +138,14 @@ function theWaiters(db) {
                 day.color = 'red';
             }
         }
-
         return eachDay;
     }
 
+
+
     async function resetData() {
-
         errorMsg = "Your schedule data has been  cleared";
-
-
         return data.none('DELETE FROM waiter_shifts');
-
     }
 
     return {
@@ -137,7 +159,9 @@ function theWaiters(db) {
         waiterShift,
         resetData,
         getEmployee,
-        waiterIdentity
+        waiterIdentity,
+        registerUser,
+        checkUser
     }
 
 }
