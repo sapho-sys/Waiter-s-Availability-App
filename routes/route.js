@@ -75,14 +75,13 @@ function waitersSchecule(dataFactory,db) {
         let strWaiter = dataFactory.getEmployee();
         let waiterShifts = req.body.checkDays;
         var numOfTrue = waiterShifts.filter(function(item){ return typeof item === "string"; }).length
-        if (!waiterShifts || numOfTrue < 3) {
+        if (numOfTrue < 1 || numOfTrue < 3) {
             req.flash('error', 'Please select at least three days for your schedule.');
         } else if (numOfTrue >=3) {
             req.flash('success', 'Successfuly updated.');
             await dataFactory.waiterShift(waiterShifts);
         }
         res.redirect(`waiters/${strWaiter}`);
-
     }
 
     async function getDays(req, res) {

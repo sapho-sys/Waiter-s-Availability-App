@@ -48,6 +48,7 @@ function theWaiters(db) {
         if (newWaiter.length == 0) {
             await scheduleDay(schedule, waiterId);
         } else {
+            await data.query('DELETE FROM waiter_shifts WHERE waiter_id = $1', [waiterId]);
             await scheduleDay(schedule, waiterId);
         }
     }
@@ -112,14 +113,12 @@ function theWaiters(db) {
         for (const i of theDays) {
             const result = await data.manyOrNone('SELECT COUNT(*) FROM waiter_shifts WHERE waiter_id = $1 and shift_id = $2', [myWaiterId, i.id]);
             const count = result[0].count;
-            //check if they atleast 1 day is checked
             if (count > 0) {
                 i.ticked = true;
             } else {
                 i.ticked = false;
             }
         }
-
         return theDays;
     }
 

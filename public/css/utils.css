@@ -64,6 +64,8 @@ body {
    cursor: pointer;
    transition: all 0.3s ease;
    border: 2.5px solid #ffd60a;
+   margin-left: 25%;
+   /* width:30%; */
 }
 
 .btn:hover {
