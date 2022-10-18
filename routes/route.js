@@ -50,13 +50,19 @@ function waitersSchecule(dataFactory,db) {
     }
     async function postWaiter(req, res) {
         let entry = req.body.username;
-        if (entry != '') {
-            await dataFactory.setEmployee(entry);
-            let waiter = dataFactory.getEmployee();
-            res.redirect(`waiters/${waiter}`);
+        const sqlDuplicates = await db.manyOrNone('SELECT COUNT(*) FROM my_waiters WHERE waiter_name = $1', [entry]);
+        let duplicates = sqlDuplicates[0].count;
+        console.log(duplicates);
+        if (duplicates.length > 1) {
+            req.flash('error', 'This waiter has already been scheduled for the week');
+            res.redirect('/');
         } else if(!entry){
             req.flash('error', 'Provide us with your name before we proceed');
             res.redirect('/');
+        }else{
+            await dataFactory.setEmployee(entry);
+            let waiter = dataFactory.getEmployee();
+            res.redirect(`waiters/${waiter}`);
         }
 
     }
@@ -85,6 +91,12 @@ function waitersSchecule(dataFactory,db) {
     }
 
     async function getDays(req, res) {
+        if(!req.session.userLogin){
+            res.redirect('login');
+            return;
+        }
+        const weekDay = req.params.day;
+        
         const myTable = await dataFactory.integrateData()
         const Addcolor = await dataFactory.classListAddForShifts();
         // here I configure the arrays I will work with for each day
@@ -124,9 +136,13 @@ function waitersSchecule(dataFactory,db) {
             Thursday,
             Friday,
             Saturday,
-            Addcolor
+            Addcolor,
+            myTable
             
         });
+    }
+    async function deleteUser(req,res){
+        
     }
 
     async function resetInfo(req, res) {
@@ -146,7 +162,8 @@ function waitersSchecule(dataFactory,db) {
         signUpRoute,
         loginRoute,
         regUser,
-        Login
+        Login,
+        deleteUser
     }
 
 

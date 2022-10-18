@@ -59,7 +59,8 @@ app.get('/days', employeeRouter.getDays);
 app.get('/login', employeeRouter.loginRoute);
 app.post('/login', employeeRouter.Login);
 app.post('/signup',employeeRouter.regUser);
-// app.get('/signup/username',employeeRouter.getUser);
+// app.post('/days/:shifts',employeeRouter.viewUser);
+app.post('/days/:shifts',employeeRouter.deleteUser);
 app.get('/signup', employeeRouter.signUpRoute);
 app.get('/reset', employeeRouter.resetInfo);
 

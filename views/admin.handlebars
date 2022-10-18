@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/utils.css" />
     <link rel="stylesheet" href="/css/style-admin.css" />
     <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://kit.fontawesome.com/9a9a378fa5.js" crossorigin="anonymous"></script>
 
     <script src="./js/script.js" defer></script>
@@ -60,8 +61,7 @@
                             <thead>
                                 <tr>
                                     {{#each Addcolor}}
-                                    <th class="{{color}}" value="{{id}}">{{shifts}}
-                                    </th>
+                                    <th class="{{color}}" value="{{id}}">{{shifts}}</th>
                                     {{/each}}
                                 </tr>
                             </thead>
@@ -69,38 +69,65 @@
                                 <tr>
                                     <td>
                                         {{#each Sunday}}
-                                        <a href="/waiters/{{this}}">{{this}}</a><br><br>
+                                        <form action="" method="post">
+                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <button type="submit" class="fa fa-trash"></button>
+                                        </form>
+                                        <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Monday}}
-                                        <a href="/waiters/{{this}}">{{this}}</a><br><br>
+                                        <form action="" method="post">
+                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <button type="submit" class="fa fa-trash"></button>
+                                        </form>
+                                        <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Tuesday}}
-                                        <a href="/waiters/{{this}}">{{this}}</a><br><br>
+                                        <form action="" method="post">
+                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <button type="submit" class="fa fa-trash"></button>
+                                        </form>
+                                        <br><br>
                                         {{/each}}
                                     </td>
 
                                     <td>
                                         {{#each Wednesday}}
-                                        <a href="/waiters/{{this}}">{{this}}</a><br><br>
+                                        <form action="" method="post">
+                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <button type="submit" class="fa fa-trash"></button>
+                                        </form>
+                                        <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Thursday}}
-                                        <a href="/waiters/{{this}}">{{this}}</a><br><br>
+                                        <form action="" method="post">
+                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <button type="submit" class="fa fa-trash"></button>
+                                        </form>
+                                        <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Friday}}
-                                        <a href="/waiters/{{this}}">{{this}}</a><br><br>
+                                        <form action="" method="post">
+                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <button type="submit" class="fa fa-trash"></button>
+                                        </form>
+                                        <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Saturday}}
-                                        <a href="/waiters/{{this}}">{{this}}</a>
+                                        <form action="" method="post">
+                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <button type="submit" class="fa fa-trash"></button>
+                                        </form>
                                         {{/each}}
                                     </td>
                                 </tr>
@@ -125,11 +152,14 @@
 
 
     </section>
+  
+    </div>
+
     <div class="errors">
         <span>{{messages.error}}</span>
     </div>
 
-
+    <script src="/public/js/modal.js"></script>
 
 </body>
 

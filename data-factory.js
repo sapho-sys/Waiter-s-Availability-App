@@ -3,27 +3,16 @@ function theWaiters(db) {
     const data = db;
     let errorMsg = '';
     let waitername = '';
-
     const RegExp = /^[A-Za-z]+$/;
-
     async function setEmployee(user) {
         waitername = user.trim()
         try {
             if (waitername !== '') {
                 if (waitername.match(RegExp)) {
-                    const sqlDuplicates = await data.manyOrNone('SELECT waiter_name FROM my_waiters WHERE waiter_name = $1', [waitername]);
-                    if (sqlDuplicates.length == 0) {
-                        await data.none('INSERT INTO my_waiters (waiter_name) VALUES ($1)', [waitername]);
-                    } else {
-                        errorMsg = 'Note: This waiter has already done their schedule for the week!'
-                    }
-                } else {
-                    errorMsg = 'Invalid characters entered!, please try again...'
+                    const strName = waitername.charAt(0).toUpperCase() + waitername.slice(1).toLowerCase();
+                    await data.none('INSERT INTO my_waiters (waiter_name) VALUES ($1)', [strName]);
                 }
-            } else {
-                errorMsg = 'Please provide your name !'
             }
-
         } catch (error) {
             console.error('Somethin went wrong', error);
         }
@@ -70,33 +59,27 @@ function theWaiters(db) {
         FROM waiter_shifts
 		INNER JOIN my_waiters ON waiter_shifts.waiter_id = my_waiters.id
 		INNER JOIN weekdays ON waiter_shifts.shift_id = weekdays.id`);
-        return strWaiters;  
+        return strWaiters;
 
     }
 
-    async function checkUser(username,email){
-        const code =' ';
-          await registerUser(username, email, code);
+    async function checkUser(username, email) {
+        const code = ' ';
+        await registerUser(username, email, code);
     }
-    
-    async function registerUser(username,email,password){
+
+    async function registerUser(username, email, password) {
         let dataModel = [
             username,
             email,
             password
         ]
-      
         try {
-          
             const regEntry = await data.none(`INSERT INTO admin_user (username, email, code) 
-            VALUES($1 ,$2,$3)`,dataModel);
-            
+            VALUES($1 ,$2,$3)`, dataModel);
         } catch (error) {
-            console.log(`Here is your error:`,error)
-            
+            console.log(`Here is your error:`, error)
         }
-       
-        // return regEntry;
     }
 
     async function weekDays() {
@@ -122,11 +105,19 @@ function theWaiters(db) {
         return theDays;
     }
 
+    async function deleteData(waiter) {
+        const workWeek = await weekDays();
+        const employeeID = await waiterIdentity(waiter);
+        for (const j of workWeek) {
+            const remove = await data.none(`DELETE FROM waiter_shifts WHERE waiter_id = $1 and shift_id = $2`, [employeeID, j.id]);
+        }
+    }
+
     async function classListAddForShifts() {
         const eachDay = await weekDays();
         for (const day of eachDay) {
             const result = await data.manyOrNone('SELECT COUNT(*)  FROM waiter_shifts WHERE shift_id = $1', [day.id]);
-            console.log(result)
+            // console.log(result)
             const count = result[0].count;
             //add color to my weekdays based on shedules
             if (count < 3) {
@@ -160,7 +151,8 @@ function theWaiters(db) {
         getEmployee,
         waiterIdentity,
         registerUser,
-        checkUser
+        checkUser,
+        deleteData
     }
 
 }
