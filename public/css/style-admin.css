@@ -111,8 +111,19 @@ body {
  .waiterlist {
     margin-left: auto;
     margin-right: auto;
-    width:10%;
+    width:20%;
+    display: flex;
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: 10px;
  }
+ .drop{
+   width: 100%;
+   height: 30px;
+   
+ }
+ 
+ 
  
  /*** ADD MEMBER DETAILS ***/
  

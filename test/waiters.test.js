@@ -33,17 +33,10 @@ describe('Waiters availibility webapp' , function(){
 
 		await instanceWaiters.setEmployee('Sapho');
 
-		assert.deepEqual([{waiter_name:'Sapho'}], await instanceWaiters.retrieveData());
+		assert.deepEqual([{"waiter_name":'Sapho'}], await instanceWaiters.retrieveData());
 	});
 
-	it('Should show an error message for a waiter who has already scheduled', async function(){
-		let instanceWaiters = dataFactory(db);
 
-		await instanceWaiters.setEmployee('Thanos');
-		await instanceWaiters.setEmployee('Thanos');
-
-		assert.deepEqual('Note: This waiter has already done their schedule for the week!', instanceWaiters.errors());
-	});
 
    
 	it ('Should be able to return the waiters name entered', async function(){
