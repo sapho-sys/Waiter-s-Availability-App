@@ -19,15 +19,10 @@ function waitersSchecule(dataFactory,db) {
         if(userEmail !='' || username !=''){
             let code = uid();
               console.log(`Here is the code`,code)
-           
-            // if(existingUser > 0){
-                // req.flash('error','This account already exists');
-                // res.redirect('back');
-            // }else{
                 await dataFactory.registerUser(username,userEmail,code)
-                req.flash('error',`Here is your password>>${code}`)
+                req.flash('error',`Here is your password:${code}`)
                 res.redirect(`back`);
-             // }
+             
         }else{
             req.flash('error','Please ensure that you fill in all fields');
             res.redirect('back')
@@ -39,7 +34,7 @@ function waitersSchecule(dataFactory,db) {
         const password = req.body.password;
        const userLogin = await db.manyOrNone(`SELECT * FROM admin_user 
        WHERE email = $1 and code = $2`,[email, password]);
-       console.log(userLogin);
+    //    console.log(userLogin);
        if(userLogin.length == 0){
         req.flash('error','You do not have an account; please create it');
         res.redirect('back')
@@ -52,7 +47,7 @@ function waitersSchecule(dataFactory,db) {
         let entry = req.body.username;
         const sqlDuplicates = await db.manyOrNone('SELECT COUNT(*) FROM my_waiters WHERE waiter_name = $1', [entry]);
         let duplicates = sqlDuplicates[0].count;
-        console.log(duplicates);
+        // console.log(duplicates);
         if (duplicates.length > 1) {
             req.flash('error', 'This waiter has already been scheduled for the week');
             res.redirect('/');
@@ -95,10 +90,11 @@ function waitersSchecule(dataFactory,db) {
             res.redirect('login');
             return;
         }
-        const weekDay = req.params.day;
+        
         
         const myTable = await dataFactory.integrateData()
         const Addcolor = await dataFactory.classListAddForShifts();
+      
         // here I configure the arrays I will work with for each day
         const Monday = [];
         const Tuesday = [];
@@ -137,11 +133,22 @@ function waitersSchecule(dataFactory,db) {
             Friday,
             Saturday,
             Addcolor,
-            myTable
+            waiterNames: await dataFactory.retrieveData()
             
         });
     }
     async function deleteUser(req,res){
+        const user = req.body.waiter;
+        try {
+            console.log(`Here is the waiter id`,user);
+           
+            await dataFactory.deleteData(user);
+          
+            res.redirect('back');
+        } catch (error) {
+          console.log("Here is the bug",error);
+        }
+      
         
     }
 

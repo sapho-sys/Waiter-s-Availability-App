@@ -35,11 +35,7 @@
             </div>
         </div>
     </section>
-    <ul class="legend">
-        <li><span class="yellowdot"></span>Less than 3 waiter's available</li><br></br>
-        <li><span class="greendot"></span>Enough waiters available for the day</li><br></br>
-        <li><span class="reddot"></span>Exceeded threshold of 3 waiter's</li><br></br>
-    </ul>
+
 
     <section class="showcase">
 
@@ -49,15 +45,32 @@
                 <div class="the-periods">
                     <div class="table-periods">
                         <h2 class="title">WAITER'S WEEKLY SCHEDULE</h2>
+                        <div class="user-info">
+                            {{#each user}}
+                            <h3 class="title">You're logged in as:{{username}}</h3>
+                            {{/each}}
+                        </div>
+                        <div class="waiterlist" >
+                             
+                              <form action="/waitername" method="post">
+                              
+                                <select name="waiter" class="drop">
+                                    {{!-- <select class="form-control" id="search" name="search" value="search"
+                                        onchange="this.form.submit()"> --}}
+                                        <option href="/expenses">Waiter</option>
+                                     
+                                          {{#each waiterNames}}
+                                        <option value="{{waiter_name}}">{{waiter_name}}</option>
+                                        {{/each}}
+                                      
+                                    </select>
+                                    <button type="submit" class="fa fa-trash"></button>
+                            </form>
+                        </div>
+                         
 
-
-                        {{!-- <br><br><br> --}}
-
-                        {{#each user}}
-                        <h4>{{username}}</h4>
-                        {{/each}}
                         <table id="display" class="styled-table">
-
+                          
                             <thead>
                                 <tr>
                                     {{#each Addcolor}}
@@ -69,65 +82,44 @@
                                 <tr>
                                     <td>
                                         {{#each Sunday}}
-                                        <form action="" method="post">
-                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
-                                        <button type="submit" class="fa fa-trash"></button>
-                                        </form>
+                                        <a href="/waiters/{{this}}">{{this}}</a>
                                         <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Monday}}
-                                        <form action="" method="post">
                                         <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
-                                        <button type="submit" class="fa fa-trash"></button>
-                                        </form>
                                         <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Tuesday}}
-                                        <form action="" method="post">
                                         <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
-                                        <button type="submit" class="fa fa-trash"></button>
-                                        </form>
                                         <br><br>
                                         {{/each}}
                                     </td>
 
                                     <td>
                                         {{#each Wednesday}}
-                                        <form action="" method="post">
                                         <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
-                                        <button type="submit" class="fa fa-trash"></button>
-                                        </form>
                                         <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Thursday}}
-                                        <form action="" method="post">
                                         <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
-                                        <button type="submit" class="fa fa-trash"></button>
-                                        </form>
                                         <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Friday}}
-                                        <form action="" method="post">
                                         <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
-                                        <button type="submit" class="fa fa-trash"></button>
-                                        </form>
                                         <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Saturday}}
-                                        <form action="" method="post">
                                         <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
-                                        <button type="submit" class="fa fa-trash"></button>
-                                        </form>
                                         {{/each}}
                                     </td>
                                 </tr>
@@ -148,11 +140,18 @@
         </form>
 
 
+        <ul class="legend">
+            <li><span class="yellowdot"></span>Less than 3 waiter's available</li><br></br>
+            <li><span class="greendot"></span>Enough waiters available for the day</li><br></br>
+            <li><span class="reddot"></span>Exceeded threshold of 3 waiter's</li><br></br>
+        </ul>
+
+
 
 
 
     </section>
-  
+
     </div>
 
     <div class="errors">

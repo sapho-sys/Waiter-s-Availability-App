@@ -27,7 +27,7 @@ function theWaiters(db) {
     }
 
     async function retrieveData() {
-        const tableRow = data.manyOrNone('SELECT waiter_name FROM my_waiters');
+        const tableRow = data.manyOrNone('SELECT * FROM my_waiters');
         return tableRow;
     }
 
@@ -106,11 +106,12 @@ function theWaiters(db) {
     }
 
     async function deleteData(waiter) {
-        const workWeek = await weekDays();
-        const employeeID = await waiterIdentity(waiter);
-        for (const j of workWeek) {
-            const remove = await data.none(`DELETE FROM waiter_shifts WHERE waiter_id = $1 and shift_id = $2`, [employeeID, j.id]);
-        }
+        const employeeID = await data.manyOrNone(`SELECT id FROM
+         my_waiters WHERE waiter_name = $1`,[waiter])
+         let waiterID = employeeID[0].id;
+        const remove = await data.none(`DELETE FROM waiter_shifts WHERE waiter_id = $1`, [waiterID]);
+        const deleteId = await data.none('DELETE FROM my_waiters WHERE id= $1', [waiterID]);
+            
     }
 
     async function classListAddForShifts() {

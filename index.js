@@ -60,7 +60,7 @@ app.get('/login', employeeRouter.loginRoute);
 app.post('/login', employeeRouter.Login);
 app.post('/signup',employeeRouter.regUser);
 // app.post('/days/:shifts',employeeRouter.viewUser);
-app.post('/days/:shifts',employeeRouter.deleteUser);
+app.post('/waitername',employeeRouter.deleteUser);
 app.get('/signup', employeeRouter.signUpRoute);
 app.get('/reset', employeeRouter.resetInfo);
 
