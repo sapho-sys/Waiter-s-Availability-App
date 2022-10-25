@@ -32,7 +32,7 @@ describe('Waiters availibility webapp' , function(){
 
 		await instanceWaiters.setEmployee('Sapho');
 
-		assert.deepEqual([{"waiter_name":'Sapho'}], await instanceWaiters.retrieveData());
+		assert.deepEqual([{waiter_name:'Sapho',id:1}], await instanceWaiters.retrieveData());
 	});
    
 	it ('Should be able to return the waiters name entered', async function(){
