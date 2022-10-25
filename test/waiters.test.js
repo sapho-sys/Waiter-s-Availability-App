@@ -45,22 +45,7 @@ describe('Waiters availibility webapp' , function(){
 		assert.deepEqual('Note: This waiter has already done their schedule for the week!', instanceWaiters.errors());
 	});
 
-    it ('Should show an error message if the waiters name is mixed with special characters', async function(){
-        let instanceWaiters = dataFactory(db);
-
-        await instanceWaiters.setEmployee("Skillo24");
-
-        assert.deepEqual('Invalid characters entered!, please try again...',instanceWaiters.errors());
-
-    });
-
-    it ('Should request the user to enter a waiters name if its a blank entry', async function(){
-        let instanceWaiters = dataFactory(db);
-        await instanceWaiters.setEmployee("");
-
-        assert.deepEqual('Please provide your name !', instanceWaiters.errors());
-    })
-
+   
 	it ('Should be able to return the waiters name entered', async function(){
         let instanceWaiters = dataFactory(db);
         await instanceWaiters.setEmployee("Sapho");
