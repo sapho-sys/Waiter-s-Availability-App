@@ -27,7 +27,6 @@ describe('Waiters availibility webapp' , function(){
         
 	});
 
-
 	it('Should be able to add the waiters name to the database', async function(){
 		let instanceWaiters = dataFactory(db);
 
@@ -35,9 +34,6 @@ describe('Waiters availibility webapp' , function(){
 
 		assert.deepEqual([{"waiter_name":'Sapho'}], await instanceWaiters.retrieveData());
 	});
-
-
-
    
 	it ('Should be able to return the waiters name entered', async function(){
         let instanceWaiters = dataFactory(db);
