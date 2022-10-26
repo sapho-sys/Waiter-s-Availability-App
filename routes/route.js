@@ -143,6 +143,7 @@ function waitersSchecule(dataFactory,db) {
             console.log(`Here is the waiter id`,user);
            
             await dataFactory.deleteData(user);
+            req.flash('success',`${user} has been deleted for this week`);
           
             res.redirect('back');
         } catch (error) {

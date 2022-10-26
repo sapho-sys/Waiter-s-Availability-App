@@ -38,13 +38,6 @@
 
 
     <section class="showcase">
-        {{!-- <div class="user-info">
-            {{#each user}}
-            <h3 class="title">You're logged in as:{{username}}</h3>
-            {{/each}}
-        </div> --}}
-
-
         <div class="row">
             <section class="period">
                 <div class="the-periods">
@@ -55,7 +48,7 @@
 
 
                             <form action="/waitername" method="post">
-
+                                <h4>Scheduled Waiter's:</h4>
                                 <select name="waiter" class="drop">
 
                                     <option href="/expenses">delete-waiter</option>
@@ -68,6 +61,12 @@
                                 <br><br>
                                 <button type="submit" class="fa fa-trash" style="color:red;"></button>
                             </form>
+
+                            {{#if messages.success}}
+                            <div class="errors">
+                                <h4 class="success">{{messages.success}}</h4>
+                            </div>
+                            {{/if}}
                         </div>
 
 
@@ -137,9 +136,6 @@
 
 
         </div>
-        <form action="/reset" method="GET">
-            <button class="btn myBtn m-1" type="submit" name="button">Reset</button>
-        </form>
 
 
         <ul class="legend">
@@ -156,11 +152,8 @@
 
     </div>
 
-    <div class="errors">
-        <span>{{messages.error}}</span>
-    </div>
 
-    <script src="/public/js/modal.js"></script>
+    <script src="/js/setimeout.js"></script>
 
 </body>
 
