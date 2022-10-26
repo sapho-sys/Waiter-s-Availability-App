@@ -20,7 +20,7 @@ function waitersSchecule(dataFactory,db) {
             let code = uid();
               console.log(`Here is the code`,code)
                 await dataFactory.registerUser(username,userEmail,code)
-                req.flash('error',`Here is your password:${code}`)
+                req.flash('success',`Here is your password: ${code}`)
                 res.redirect(`back`);
              
         }else{
