@@ -73,7 +73,13 @@
                         <table id="display" class="styled-table">
 
                             <thead>
+                                 
+                                   
+                                    
+                                
+                                
                                 <tr>
+                                    <th ><i class="fa fa-edit" style="font-size:30px"></i></th>
                                     {{#each Addcolor}}
                                     <th class="{{color}}" value="{{id}}">{{shifts}}</th>
                                     {{/each}}
@@ -81,46 +87,53 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    
+                                    <td>
+                                         {{#each waiterNames}} 
+                                        <a href="/waiters/{{waiter_name}}">{{waiter_name}}</a>
+                                        <br><br>
+                                        {{/each}}
+                                    </td>
                                     <td>
                                         {{#each Sunday}}
-                                        <a href="/waiters/{{this}}">{{this}}</a>
+                                        <a >{{this}}</a>
                                         <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Monday}}
-                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <a  name="waiter" value="{{this}}">{{this}}</a>
                                         <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Tuesday}}
-                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <a  name="waiter" value="{{this}}">{{this}}</a>
                                         <br><br>
                                         {{/each}}
                                     </td>
 
                                     <td>
                                         {{#each Wednesday}}
-                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <a  name="waiter" value="{{this}}">{{this}}</a>
                                         <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Thursday}}
-                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <a  name="waiter" value="{{this}}">{{this}}</a>
                                         <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Friday}}
-                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <a  name="waiter" value="{{this}}">{{this}}</a>
                                         <br><br>
                                         {{/each}}
                                     </td>
                                     <td>
                                         {{#each Saturday}}
-                                        <a href="/waiters/{{this}}" name="waiter" value="{{this}}">{{this}}</a>
+                                        <a  name="waiter" value="{{this}}">{{this}}</a>
                                         {{/each}}
                                     </td>
                                 </tr>
