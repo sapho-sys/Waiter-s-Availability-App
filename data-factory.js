@@ -3,13 +3,14 @@ function theWaiters(db) {
     const data = db;
     let errorMsg = '';
     let waitername = '';
+    let strName='';
     const RegExp = /^[A-Za-z]+$/;
     async function setEmployee(user) {
         waitername = user.trim()
         try {
             if (waitername !== '') {
                 if (waitername.match(RegExp)) {
-                    const strName = waitername.charAt(0).toUpperCase() + waitername.slice(1).toLowerCase();
+                     strName = waitername.charAt(0).toUpperCase() + waitername.slice(1).toLowerCase();
                     await data.none('INSERT INTO my_waiters (waiter_name) VALUES ($1)', [strName]);
                 }
             }
@@ -20,7 +21,7 @@ function theWaiters(db) {
     }
 
     function getEmployee() {
-        return waitername;
+        return strName;
     }
     function errors() {
         return errorMsg;
@@ -87,7 +88,7 @@ function theWaiters(db) {
         return theWeek;
     }
     async function waiterIdentity() {
-        const getId = await data.manyOrNone('SELECT id FROM my_waiters WHERE waiter_name = $1', [waitername]);
+        const getId = await data.manyOrNone('SELECT id FROM my_waiters WHERE waiter_name = $1', [strName]);
         return getId[0].id;
     }
     async function shiftsSelected(waiter) {
