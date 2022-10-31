@@ -1,7 +1,7 @@
 
 import ShortUniqueId from "short-unique-id";
 const uid = new ShortUniqueId({ length: 10 });
-function waitersSchecule(dataFactory,db) {
+function waitersSchecule(dataFactory, db) {
 
     async function defaultRoute(req, res) {
         res.render('index');
@@ -13,18 +13,26 @@ function waitersSchecule(dataFactory,db) {
     async function loginRoute(req, res) {
         res.render('login');
     }
-    async function regUser(req,res){
-        const userEmail= req.body.email;
-        const username= req.body.username;
-        if(userEmail !='' || username !=''){
+    async function regUser(req, res) {
+        const userEmail = req.body.email;
+        const username = req.body.username;
+        if (userEmail != '' || username != '') {
             let code = uid();
-              console.log(`Here is the code`,code)
-                await dataFactory.registerUser(username,userEmail,code)
-                req.flash('success',`Here is your password: ${code}`)
+            const duplicateCheck = await db.manyOrNone(`SELECT COUNT(*) FROM admin_user 
+            WHERE username = $1 and email = $2`, [username, userEmail]);
+            console.log(`Mutation:`, duplicateCheck)
+            if (duplicateCheck[0].count > 1) {
+                req.flash('success', 'You already have an account');
+                res.redirect('back')
+            }else if(duplicateCheck[0].count == 0){
+                await dataFactory.registerUser(username, userEmail, code)
+                req.flash('success', `Here is your password: ${code}`)
                 res.redirect(`back`);
-             
-        }else{
-            req.flash('error','Please ensure that you fill in all fields');
+            }
+
+
+        } else {
+            req.flash('error', 'Please ensure that you fill in all fields');
             res.redirect('back')
         }
     }
@@ -32,29 +40,26 @@ function waitersSchecule(dataFactory,db) {
     async function Login(req, res) {
         const email = req.body.email;
         const password = req.body.password;
-       const userLogin = await db.manyOrNone(`SELECT * FROM admin_user 
-       WHERE email = $1 and code = $2`,[email, password]);
-    //    console.log(userLogin);
-       if(userLogin.length == 0){
-        req.flash('error','You do not have an account; please create it');
-        res.redirect('back')
-       }else{
-        req.session.userLogin = userLogin;
-        res.redirect(`days`)
-       }
+        const userLogin = await db.manyOrNone(`SELECT * FROM admin_user 
+       WHERE email = $1 and code = $2`, [email, password]);
+        if (userLogin.length == 0) {
+            req.flash('error', 'You do not have an account; please create it');
+            res.redirect('back')
+        } else {
+            req.session.userLogin = userLogin;
+            res.redirect(`days`)
+        }
     }
     async function postWaiter(req, res) {
         let entry = req.body.username;
         const sqlDuplicates = await db.manyOrNone('SELECT COUNT(*) FROM my_waiters WHERE waiter_name = $1', [entry]);
-        let duplicates = sqlDuplicates[0].count;
-        // console.log(duplicates);
-        if (duplicates.length > 1) {
+        if (sqlDuplicates[0].count >= 1) {
             req.flash('error', 'This waiter has already been scheduled for the week');
             res.redirect('/');
-        } else if(!entry){
+        } else if (!entry) {
             req.flash('error', 'Provide us with your name before we proceed');
             res.redirect('/');
-        }else{
+        } else {
             await dataFactory.setEmployee(entry);
             let waiter = dataFactory.getEmployee();
             res.redirect(`waiters/${waiter}`);
@@ -73,28 +78,35 @@ function waitersSchecule(dataFactory,db) {
     }
 
     async function postDays(req, res) {
-        let strWaiter = dataFactory.getEmployee();
-        let waiterShifts = req.body.checkDays;
-        var numOfTrue = waiterShifts.filter(function(item){ return typeof item === "string"; }).length
-        if (numOfTrue < 1 || numOfTrue < 3) {
-            req.flash('error', 'Please select at least three days for your schedule.');
-        } else if (numOfTrue >=3) {
-            req.flash('success', 'Successfuly updated.');
-            await dataFactory.waiterShift(waiterShifts);
+        try {
+            let strWaiter = dataFactory.getEmployee();
+            let waiterShifts = req.body.checkDays;
+            var numOfTrue = waiterShifts.filter(function (item) { return typeof item === "string"; }).length
+            if (numOfTrue >= 3) {
+                req.flash('success', 'Successfuly updated.');
+                await dataFactory.waiterShift(waiterShifts);
+            } else if (numOfTrue < 3) {
+                req.flash('error', 'Please select at least three days for your schedule.');
+            }
+            res.redirect(`waiters/${strWaiter}`);
+            
+        } catch (error) {
+            console.log(`Here is my bug:`,error)
+            
         }
-        res.redirect(`waiters/${strWaiter}`);
+       
     }
 
     async function getDays(req, res) {
-        if(!req.session.userLogin){
+        if (!req.session.userLogin) {
             res.redirect('login');
             return;
         }
-        
-        
+
+
         const myTable = await dataFactory.integrateData()
         const Addcolor = await dataFactory.classListAddForShifts();
-      
+
         // here I configure the arrays I will work with for each day
         const Monday = [];
         const Tuesday = [];
@@ -124,7 +136,7 @@ function waitersSchecule(dataFactory,db) {
 
         }
         res.render('admin', {
-            user:req.session.userLogin,
+            user: req.session.userLogin,
             Sunday,
             Monday,
             Tuesday,
@@ -134,23 +146,23 @@ function waitersSchecule(dataFactory,db) {
             Saturday,
             Addcolor,
             waiterNames: await dataFactory.retrieveData()
-            
+
         });
     }
-    async function deleteUser(req,res){
+    async function deleteUser(req, res) {
         const user = req.body.waiter;
         try {
-            console.log(`Here is the waiter id`,user);
-           
+            console.log(`Here is the waiter id`, user);
+
             await dataFactory.deleteData(user);
-            req.flash('success',`${user} has been deleted for this week`);
-          
+            req.flash('success', `${user} has been deleted for this week`);
+
             res.redirect('back');
         } catch (error) {
-          console.log("Here is the bug",error);
+            console.log("Here is the bug", error);
         }
-      
-        
+
+
     }
 
     async function resetInfo(req, res) {

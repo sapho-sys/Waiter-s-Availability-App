@@ -93,9 +93,11 @@ function theWaiters(db) {
     }
     async function shiftsSelected(waiter) {
         const theDays = await weekDays();
-        const myWaiterId = await waiterIdentity(waiter)
+        const myWaiterId = await data.manyOrNone(`SELECT id FROM
+         my_waiters WHERE waiter_name = $1`,[waiter]);
+         let herWaiterId =myWaiterId[0].id;
         for (const i of theDays) {
-            const result = await data.manyOrNone('SELECT COUNT(*) FROM waiter_shifts WHERE waiter_id = $1 and shift_id = $2', [myWaiterId, i.id]);
+            const result = await data.manyOrNone('SELECT COUNT(*) FROM waiter_shifts WHERE waiter_id = $1 and shift_id = $2', [herWaiterId, i.id]);
             const count = result[0].count;
             if (count > 0) {
                 i.ticked = true;
