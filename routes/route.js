@@ -24,7 +24,7 @@ function waitersSchecule(dataFactory, db) {
             if (duplicateCheck[0].count > 1) {
                 req.flash('success', 'You already have an account');
                 res.redirect('back')
-            }else if(duplicateCheck[0].count == 0){
+            } else if (duplicateCheck[0].count == 0) {
                 await dataFactory.registerUser(username, userEmail, code)
                 req.flash('success', `Here is your password: ${code}`)
                 res.redirect(`back`);
@@ -90,12 +90,12 @@ function waitersSchecule(dataFactory, db) {
                 req.flash('error', 'Please select at least three days for your schedule.');
             }
             res.redirect(`waiters/${strWaiter}`);
-            
+
         } catch (error) {
-            console.log(`Here is my bug:`,error)
-            
+            console.log(`Here is my bug:`, error)
+
         }
-       
+
     }
 
     async function getDays(req, res) {
@@ -103,11 +103,8 @@ function waitersSchecule(dataFactory, db) {
             res.redirect('login');
             return;
         }
-
-
         const myTable = await dataFactory.integrateData()
         const Addcolor = await dataFactory.classListAddForShifts();
-
         // here I configure the arrays I will work with for each day
         const Monday = [];
         const Tuesday = [];
@@ -118,21 +115,28 @@ function waitersSchecule(dataFactory, db) {
         const Sunday = [];
         // puttin my arrays to use by pushing the names of the waiters 
         for (const i of myTable) {
-            if (i.shifts.includes('Sunday')) {
-                Sunday.push(i.waiter_name);
-            } else if (i.shifts.includes('Monday')) {
-                Monday.push(i.waiter_name);
-            } else if (i.shifts.includes('Tuesday')) {
-                Tuesday.push(i.waiter_name);
-            } else if (i.shifts.includes('Wednesday')) {
-                Wednesday.push(i.waiter_name);
-            } else if (i.shifts.includes('Thursday')) {
-                Thursday.push(i.waiter_name);
-            } else if (i.shifts.includes('Friday')) {
-                Friday.push(i.waiter_name);
-            }
-            if (i.shifts.includes('Saturday')) {
-                Saturday.push(i.waiter_name);
+            switch (true) {
+                case (i.shifts.includes('Sunday')):
+                    Sunday.push(i.waiter_name)
+                    break
+                case (i.shifts.includes('Monday')):
+                    Monday.push(i.waiter_name)
+                    break
+                case (i.shifts.includes('Tuesday')):
+                    Tuesday.push(i.waiter_name)
+                    break
+                case (i.shifts.includes('Wednesday')):
+                    Wednesday.push(i.waiter_name)
+                    break
+                case (i.shifts.includes('Thursday')):
+                    Thursday.push(i.waiter_name)
+                    break
+                case (i.shifts.includes('Friday')):
+                    Friday.push(i.waiter_name)
+                    break
+                case (i.shifts.includes('Saturday')):
+                    Saturday.push(i.waiter_name)
+                    break
             }
 
         }
