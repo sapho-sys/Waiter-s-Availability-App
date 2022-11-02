@@ -170,21 +170,21 @@ describe('Waiters availibility webapp' , function(){
 
       await instanceWaiters.setEmployee("Thanos");
       let waiter2 =  instanceWaiters.getEmployee();
-        console.log(`Waitername:`,waiter2);
+        console.log(`Waitername2:`,waiter2);
 
       const weeklyShifts2 = ["Wednesday","Thursday","Friday","Saturday"];
       await instanceWaiters.waiterShift(weeklyShifts2);
 
       await instanceWaiters.setEmployee("Hluma");
       let waiter3 =  instanceWaiters.getEmployee();
-        console.log(`Waitername:`,waiter3);
+        console.log(`Waitername3:`,waiter3);
 
       const weeklyShifts3 = ["Wednesday","Thursday","Friday","Saturday"];
       await instanceWaiters.waiterShift(weeklyShifts3);
 
       await instanceWaiters.setEmployee("Chicco");
       let waiter4 =  instanceWaiters.getEmployee();
-        console.log(`Waitername:`,waiter4);
+        console.log(`Waitername4:`,waiter4);
 
       const weeklyShifts4 = ["Wednesday","Thursday","Friday","Saturday"];
       await instanceWaiters.waiterShift(weeklyShifts4);
