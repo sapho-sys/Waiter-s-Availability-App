@@ -38,6 +38,8 @@ describe('Waiters availibility webapp' , function(){
 	it ('Should be able to return the waiters name entered', async function(){
         let instanceWaiters = dataFactory(db);
         await instanceWaiters.setEmployee("Sapho");
+        let waiter =  instanceWaiters.getEmployee();
+        console.log(`Waitername:`,waiter);
 
         assert.deepEqual('Sapho', instanceWaiters.getEmployee());
     });
