@@ -162,18 +162,30 @@ describe('Waiters availibility webapp' , function(){
       let instanceWaiters = dataFactory(db);
 
       await instanceWaiters.setEmployee("Sapho");
+      let waiter =  instanceWaiters.getEmployee();
+        console.log(`Waitername:`,waiter);
+
       const weeklyShifts = ["Wednesday","Thursday","Friday","Saturday"];
       await instanceWaiters.waiterShift(weeklyShifts);
 
       await instanceWaiters.setEmployee("Thanos");
+      let waiter2 =  instanceWaiters.getEmployee();
+        console.log(`Waitername:`,waiter2);
+
       const weeklyShifts2 = ["Wednesday","Thursday","Friday","Saturday"];
       await instanceWaiters.waiterShift(weeklyShifts2);
 
       await instanceWaiters.setEmployee("Hluma");
+      let waiter3 =  instanceWaiters.getEmployee();
+        console.log(`Waitername:`,waiter3);
+
       const weeklyShifts3 = ["Wednesday","Thursday","Friday","Saturday"];
       await instanceWaiters.waiterShift(weeklyShifts3);
 
       await instanceWaiters.setEmployee("Chicco");
+      let waiter4 =  instanceWaiters.getEmployee();
+        console.log(`Waitername:`,waiter4);
+
       const weeklyShifts4 = ["Wednesday","Thursday","Friday","Saturday"];
       await instanceWaiters.waiterShift(weeklyShifts4);
 
