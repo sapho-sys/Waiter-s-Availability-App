@@ -44,7 +44,7 @@ describe('Waiters availibility webapp' , function(){
         assert.deepEqual('Sapho', instanceWaiters.getEmployee());
     });
 
-    it ('Should be able to schedule shifts and show color Yellow to be applied to the table header', async function(){
+    it ('Should be able to schedule shifts and show color Yellow to be applied to the table header if at least one waiter is scheduled', async function(){
       let instanceWaiters = dataFactory(db);
 
       await instanceWaiters.setEmployee("Sapho");
@@ -92,18 +92,28 @@ describe('Waiters availibility webapp' , function(){
         ], await instanceWaiters.classListAddForShifts());
   })
 
-    it ('Should be able to schedule shifts and show color Green to be applied to the table header for Wednesday, Thursday & Friday', async function(){
+    it ('Should be able to schedule shifts and show color Green to be applied to the table header for Wednesday, Thursday & Friday since three waiters have been scheduled', async function(){
         let instanceWaiters = dataFactory(db);
 
         await instanceWaiters.setEmployee("Sapho");
+        let waiter =  instanceWaiters.getEmployee();
+        console.log(`Waitername:`,waiter);
+
+
         const weeklyShifts = ["Wednesday","Thursday","Friday"];
         await instanceWaiters.waiterShift(weeklyShifts);
 
         await instanceWaiters.setEmployee("Thanos");
+        let waiter2 =  instanceWaiters.getEmployee();
+        console.log(`Waitername2:`,waiter2);
+
         const weeklyShifts2 = ["Wednesday","Thursday","Friday"];
         await instanceWaiters.waiterShift(weeklyShifts2);
 
         await instanceWaiters.setEmployee("Hluma");
+        let waiter3 =  instanceWaiters.getEmployee();
+        console.log(`Waitername3:`,waiter3);
+
         const weeklyShifts3 = ["Wednesday","Thursday","Friday"];
         await instanceWaiters.waiterShift(weeklyShifts3);
         let data2 =  await instanceWaiters.classListAddForShifts();
